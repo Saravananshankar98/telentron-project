@@ -1,0 +1,116 @@
+/* JobSeekerForm.css */
+.form-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f7f9fc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: grid;
+    gap: 20px;
+  }
+  
+  label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #4CAF50;
+  }
+  
+  button {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .message.success {
+    color: #28a745;
+  }
+  
+  .message.error {
+    color: #dc3545;
+  }
+
+  input {
+    width: 100%; /* Make input take full width of the container */
+    padding: 10px; /* Add padding for better spacing inside the input */
+    font-size: 1rem; /* Set font size */
+    border: 1px solid #ccc; /* Light border color */
+    border-radius: 5px; /* Rounded corners */
+    outline: none; /* Remove default outline */
+    box-sizing: border-box; /* Ensure padding is included in the total width */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus */
+  }
+  
+  /* Focus state for the input */
+  input:focus {
+    border-color: #4CAF50; /* Change border color to green when focused */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Add subtle shadow */
+  }
+  
+  /* Disabled state for the input */
+  input:disabled {
+    background-color: #f0f0f0; /* Light background for disabled input */
+    cursor: not-allowed; /* Change cursor to indicate it's not interactive */
+  }
+  
+  /* Placeholder text styling */
+  input::placeholder {
+    color: #aaa; /* Light gray placeholder text */
+    font-style: italic; /* Make placeholder text italic */
+  }
+  
+  /* Add some spacing between input fields */
+  div {
+    margin-bottom: 15px; /* Space between input fields */
+  }
+  
+  /* Styling for labels */
+  label {
+    font-size: 1rem; /* Set font size for labels */
+    font-weight: bold; /* Make labels bold */
+    margin-bottom: 5px; /* Space below label */
+    display: block; /* Make label take full width */
+    color: #333; /* Darker color for labels */
+  }

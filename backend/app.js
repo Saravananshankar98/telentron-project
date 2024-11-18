@@ -1,46 +1,40 @@
-const express = require("express");
+const fs = require("fs");
 const path = require("path");
+const express = require("express");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
-const multer = require("multer");
 const cors = require("cors");
 const stateRoutes = require("./routes/stateRoutes");
 const userRoutes = require("./routes/userRoutes");
 const trainingSessionsRoutes = require("./routes/trainingSessionRoutes");
 const districtRoutes = require("./routes/districtRouter");
 const jobSeekerRoutes = require("./routes/jobSeekerRoutes");
-// const trainerRoutes = require("./routes/trainerRoutes");
-// const employerRoutes = require("./routes/employerRoutes");
+const trainerRoutes = require("./routes/trainerRoutes");
+const employerRoutes = require("./routes/employerRoutes");
 
 const app = express();
-const router = express.Router();
+
+const uploadDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-
-const upload = multer();
-
-router.post("/", upload.single("file"), (req, res) => {
-  console.log(req.file);
-  res.send({
-    message: "File uploaded successfully",
-    file: req.file,
-  });
-});
-app.use("/upload", router);
 
 app.use("/account", userRoutes);
 app.use("/state", stateRoutes);
 app.use("/api", trainingSessionsRoutes);
 app.use("/district", districtRoutes);
 app.use("/job-seekers", jobSeekerRoutes);
-// app.use("/trainers", trainerRoutes);
-// app.use("/employers", employerRoutes);
+app.use("/trainers", trainerRoutes);
+app.use("/employers", employerRoutes);
 
 app.use(logger("dev"));
 app.use(cookieParser());

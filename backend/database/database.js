@@ -60,9 +60,9 @@ db.serialize(() => {
       name TEXT NOT NULL,
       contact_no INTEGER NOT NULL,
       email TEXT NOT NULL,
-      notice_period INTEGER NOT NULL,
-      expected_salary INTEGER NOT NULL,
-      resume TEXT,
+      notice_period TEXT NOT NULL,
+      expected_salary TEXT NOT NULL,
+      resume BLOB,
       FOREIGN KEY (state_id) REFERENCES states(state_code),
       FOREIGN KEY (district_code) REFERENCES districts(district_code)
     );
