@@ -11,11 +11,9 @@ const Form = (props) => {
     expected_salary: 2,
     name: "saravanan",
     contact_no: 1234567895,
-    resume: null, // File for upload
+    resume: null,
   });
   const [message, setMessage] = useState("");
-
-  //  states
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -62,7 +60,7 @@ const Form = (props) => {
         setMessage(`Error: ${error}`);
       }
     } catch (err) {
-      // setMessage("Error: Could not connect to the server.");
+      console.log("eror", err);
     }
   };
 

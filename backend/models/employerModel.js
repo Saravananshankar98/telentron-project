@@ -30,7 +30,7 @@ const createEmployerData = (employerData, callback) => {
       website_url,
       linkedin_url,
       high_level_requirement,
-    ], // Pass parameters as an array
+    ],
     function (err) {
       if (err) {
         callback(err, null);

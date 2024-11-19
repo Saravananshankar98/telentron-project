@@ -6,10 +6,8 @@ const db = new sqlite3.Database("./state.db", sqlite3.OPEN_READWRITE, (err) => {
   } else {
     console.log("Database connected");
 
-    // Set busyTimeout to 5000 milliseconds (5 seconds)
     db.configure("busyTimeout", 1000);
 
-    // Enable WAL (Write-Ahead Logging) mode for better concurrency
     db.run("PRAGMA journal_mode=WAL;", (err) => {
       if (err) {
         console.error("Error setting WAL mode: ", err);
@@ -23,8 +21,8 @@ const db = new sqlite3.Database("./state.db", sqlite3.OPEN_READWRITE, (err) => {
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL,
-    password TEXT NOT NULL
+    username TEXT NOT NULL CHECK (username != ''),
+    password TEXT NOT NULL CHECK (password != '')
   )`);
 
   db.run(`
@@ -46,22 +44,22 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS training_sessions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      full_name TEXT NOT NULL,
-      mail_id TEXT NOT NULL
+      full_name TEXT NOT NULL CHECK (full_name != ''),
+      mail_id TEXT NOT NULL CHECK (mail_id != '')
     )
   `);
 
   db.run(`
     CREATE TABLE IF NOT EXISTS jobSeeker_data (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      state_id TEXT NOT NULL,
-      district_code TEXT NOT NULL,
-      city TEXT NOT NULL,
-      name TEXT NOT NULL,
-      contact_no INTEGER NOT NULL,
-      email TEXT NOT NULL,
-      notice_period TEXT NOT NULL,
-      expected_salary TEXT NOT NULL,
+      state_id TEXT NOT NULL CHECK (state_id != ''),
+      district_code TEXT NOT NULL CHECK (district_code != ''),
+      city TEXT NOT NULL CHECK (city != ''),
+      name TEXT NOT NULL CHECK (name != ''),
+      contact_no INTEGER NOT NULL CHECK (contact_no != ''),
+      email TEXT NOT NULL CHECK (email != ''),
+      notice_period TEXT NOT NULL CHECK (notice_period != ''),
+      expected_salary TEXT NOT NULL CHECK (expected_salary != ''),
       resume BLOB,
       FOREIGN KEY (state_id) REFERENCES states(state_code),
       FOREIGN KEY (district_code) REFERENCES districts(district_code)
@@ -71,24 +69,24 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS trainer_data (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      contact_no TEXT NOT NULL,
-      email TEXT NOT NULL,
+      name TEXT NOT NULL CHECK (name != ''),
+      contact_no TEXT NOT NULL CHECK (contact_no != ''),
+      email TEXT NOT NULL CHECK (email != ''),
       website_url TEXT,
-      linkedin_url TEXT NOT NULL,
-      expect_in TEXT NOT NULL
+      linkedin_url TEXT NOT NULL CHECK (linkedin_url != ''),
+      expect_in TEXT NOT NULL CHECK (expect_in != '')
     );
   `);
 
   db.run(`
     CREATE TABLE IF NOT EXISTS employer_data (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      contact_no TEXT NOT NULL,
-      email TEXT NOT NULL,
-      website_url TEXT NOT NULL,
+      name TEXT NOT NULL CHECK (name != ''),
+      contact_no TEXT NOT NULL CHECK (contact_no != ''),
+      email TEXT NOT NULL CHECK (email != ''),
+      website_url TEXT NOT NULL CHECK (website_url != ''),
       linkedin_url TEXT,
-      high_level_requirement TEXT
+      high_level_requirement TEXT CHECK (high_level_requirement != '')
     );
   `);
 });

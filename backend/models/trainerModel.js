@@ -17,7 +17,7 @@ const createTrainerData = (trainerData, callback) => {
   db.run(
     `INSERT INTO trainer_data (name, contact_no, email, website_url, linkedin_url, expect_in) 
            VALUES (?, ?, ?, ?, ?, ?)`,
-    [name, contact_no, email, website_url, linkedin_url, expect_in], // Pass parameters as an array
+    [name, contact_no, email, website_url, linkedin_url, expect_in],
     function (err) {
       if (err) {
         callback(err, null);

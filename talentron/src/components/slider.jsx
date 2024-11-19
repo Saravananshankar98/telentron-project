@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./slider.css";
 
 const Slider = () => {
-  // Data for sliders
   const sliders = [
     {
       video: "/video/1.mp4",

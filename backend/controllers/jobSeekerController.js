@@ -13,7 +13,7 @@ const listJobSeekers = (req, res) => {
 
 const createJobSeeker = (req, res) => {
   const jobSeekerData = req.body;
-  const file = req.file; // Uploaded file from multer
+  const file = req.file;
 
   if (!file) {
     return res.status(400).json({ error: "Resume file is required." });

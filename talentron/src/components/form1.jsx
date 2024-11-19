@@ -46,7 +46,7 @@ const Form12 = () => {
         setMessage(`Error: ${error}`);
       }
     } catch (err) {
-      // setMessage("Error: Could not connect to the server.");
+      console.log("err", err);
     }
   };
 
