@@ -1,7 +1,6 @@
 const jobSeekerModel = require("../models/jobSeekerModel");
-const path = require("path");
-const fs = require("fs");
 
+const { authorize, uploadFile } = require("../googleDriveUtils");
 const listJobSeekers = (req, res) => {
   jobSeekerModel.getAllJobSeekers((err, jobSeekers) => {
     if (err) {
@@ -11,20 +10,29 @@ const listJobSeekers = (req, res) => {
   });
 };
 
-const createJobSeeker = (req, res) => {
+const createJobSeeker = async (req, res) => {
   const jobSeekerData = req.body;
-  const file = req.file;
+  const fileBuffer = req.file.buffer;
+  const fileName = `${req.body.email.split("@")[0]}_${Date.now()}.pdf`;
+  const authClient = await authorize();
 
-  if (!file) {
-    return res.status(400).json({ error: "Resume file is required." });
-  }
+  const driveFile = await uploadFile(authClient, fileBuffer, fileName);
 
-  jobSeekerModel.createJobSeeker(jobSeekerData, file, (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
+  jobSeekerModel.createJobSeeker(
+    jobSeekerData,
+    driveFile.url,
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.status(201).json({
+        success: true,
+        id: result.id,
+        message: "File uploaded successfully",
+        driveFile: driveFile,
+      });
     }
-    res.status(201).json({ success: true, id: result.id });
-  });
+  );
 };
 
 module.exports = { listJobSeekers, createJobSeeker };

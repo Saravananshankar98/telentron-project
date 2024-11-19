@@ -1,7 +1,4 @@
 const db = require("../database/database");
-const path = require("path");
-const fs = require("fs");
-
 const getAllJobSeekers = (callback) => {
   db.all("SELECT * FROM jobSeeker_data", [], (err, rows) => {
     if (err) {

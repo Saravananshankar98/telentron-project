@@ -28,9 +28,9 @@ app.use(
   })
 );
 
-app.use("/account", userRoutes);
+app.use("/", userRoutes);
 app.use("/state", stateRoutes);
-app.use("/api", trainingSessionsRoutes);
+app.use("/trainingSessions", trainingSessionsRoutes);
 app.use("/district", districtRoutes);
 app.use("/job-seekers", jobSeekerRoutes);
 app.use("/trainers", trainerRoutes);
